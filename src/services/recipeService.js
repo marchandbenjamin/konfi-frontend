@@ -1,6 +1,8 @@
+import api from '../api/apiService';
+
 const getRecipes = async () => {
-    const response = await fetch('http://localhost:8080/api/recipe');
-    return await response.json();
+  const response = await api.get('/api/recipe');
+  return response.data;
 };
 
 export { getRecipes };

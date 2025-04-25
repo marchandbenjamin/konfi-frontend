@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Box, Heading, Button, List, ListItem } from '@chakra-ui/react';
-import { getRecipes } from '../services/recipeService.js'; 
+import { getAllRecipes } from '../services/recipeService.js';
 
 function Recipes() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    getRecipes()
+    getAllRecipes()
       .then((data) => setRecipes(data))
       .catch((error) => {
         console.error('Erreur lors de la récupération des recettes:', error);
@@ -19,8 +19,14 @@ function Recipes() {
       <Heading mb={4}>Liste des recettes</Heading>
       <List>
         {recipes.length > 0 ? (
-          recipes.map((recipe, index) => (
-            <ListItem key={index}>{recipe.title}</ListItem>
+          recipes.map((recipe) => (
+            <ListItem key={recipe.id}>
+              <Link to={`/recipes/${recipe.id}`}>
+                <Button variant="link" colorScheme="teal">
+                  {recipe.title}
+                </Button>
+              </Link>
+            </ListItem>
           ))
         ) : (
           <ListItem>Aucune recette disponible.</ListItem>

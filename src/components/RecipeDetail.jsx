@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Box, Heading, Text, Button, List, ListItem } from '@chakra-ui/react';
+import { Box, Heading, Text, Button, List, ListItem, Image } from '@chakra-ui/react';
 import { getRecipeById } from '../services/recipeService.js';
 
 function RecipeDetail() {
@@ -16,12 +16,23 @@ function RecipeDetail() {
     if (!recipe) {
         return <Box p={6}><Text>Chargement...</Text></Box>;
     }
-recipeId
+    recipeId
     return (
         <Box p={6}>
             <Heading mb={4}>{recipe.title}</Heading>
-            <Heading size="md" mt={4} mb={2}>Ingrédients</Heading>
-            <List>
+
+            <Image
+                src="/images/curry.jpeg"
+                alt="Image de la recette"
+                borderRadius="md"
+                mb={6}
+                objectFit="cover"
+                maxH="320px"
+                width="100%"
+            />
+
+            <Heading size="md" pl={3} mt={4} mb={2}>Ingrédients</Heading>
+            <List pl={9}>
                 {recipe.ingredients.map((ingredient) => (
                     <ListItem key={ingredient.id}>
                         {ingredient.quantity} {ingredient.unit} de {ingredient.name}
@@ -29,8 +40,8 @@ recipeId
                 ))}
             </List>
 
-            <Heading size="md" mt={6} mb={2}>Étapes</Heading>
-            <List>
+            <Heading size="md" pl={3} mt={6} mb={2}>Étapes</Heading>
+            <List pl={9}>
                 {recipe.steps.map((step) => (
                     <ListItem key={step.id}>
                         {step.stepOrder}. {step.description}
